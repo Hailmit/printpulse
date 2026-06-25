@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PrintPulse Installer</title>
+  <script
+    type="module"
+    src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module">
+  </script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --text: #17202a;
+      --muted: #637083;
+      --line: #d9e0e7;
+      --accent: #006bd6;
+      --accent-text: #ffffff;
+      --ok: #0b7f4f;
+      --warn: #9a5b00;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117;
+        --panel: #161b22;
+        --text: #f0f3f6;
+        --muted: #9aa7b5;
+        --line: #30363d;
+        --accent: #2f81f7;
+        --accent-text: #ffffff;
+        --ok: #2ea043;
+        --warn: #d29922;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(760px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 40px 0;
+    }
+
+    header {
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 5vw, 44px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 22px;
+      margin: 16px 0;
+    }
+
+    .install {
+      display: grid;
+      gap: 16px;
+      align-items: start;
+    }
+
+    esp-web-install-button::part(button),
+    button[slot="activate"] {
+      width: 100%;
+      min-height: 52px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--accent);
+      color: var(--accent-text);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    ol {
+      padding-left: 20px;
+      margin: 10px 0 0;
+    }
+
+    li {
+      margin: 8px 0;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      background: color-mix(in srgb, var(--line), transparent 50%);
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    .note {
+      border-left: 4px solid var(--warn);
+      padding-left: 12px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 620px) {
+      main {
+        width: min(100% - 24px, 760px);
+        padding: 24px 0;
+      }
+
+      .panel {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>PrintPulse Installer</h1>
+      <p class="sub">Browser-based firmware installer for ESP32-C3 Super Mini.</p>
+    </header>
+
+    <section class="panel install" aria-labelledby="install-title">
+      <div>
+        <h2 id="install-title">Install Firmware</h2>
+        <p class="note">Use Chrome or Edge on a desktop computer.</p>
+      </div>
+
+      <esp-web-install-button manifest="./manifest.json">
+        <button slot="activate">Install PrintPulse</button>
+        <span slot="unsupported">This browser does not support Web Serial. Use Chrome or Edge on desktop.</span>
+        <span slot="not-allowed">This page must be served over HTTPS or localhost.</span>
+      </esp-web-install-button>
+    </section>
+
+    <section class="panel" aria-labelledby="steps-title">
+      <h2 id="steps-title">Flash Steps</h2>
+      <ol>
+        <li>Connect the ESP32-C3 Super Mini to USB.</li>
+        <li>Click <code>Install PrintPulse</code>.</li>
+        <li>Select the USB serial port when the browser asks.</li>
+        <li>After flashing, connect to <code>PrintPulse-XXXX</code> with password <code>12345678</code>.</li>
+        <li>Open <code>http://192.168.4.1</code> to configure WiFi and printer details.</li>
+      </ol>
+    </section>
+
+  </main>
+</body>
+</html>
